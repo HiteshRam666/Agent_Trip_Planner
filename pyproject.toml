@@ -1,0 +1,23 @@
+[project]
+name = "agent-trip-planner"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.121.1",
+    "httpx>=0.28.1",
+    "langchain>=1.0.5",
+    "langchain-community>=0.4.1",
+    "langchain-experimental>=0.4.0",
+    "langchain-google-community>=3.0.0",
+    "langchain-groq>=1.0.0",
+    "langchain-openai>=1.0.2",
+    "langchain-tavily>=0.2.13",
+    "langgraph>=1.0.3",
+    "pydantic>=2.12.4",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+    "streamlit>=1.51.0",
+    "uvicorn>=0.38.0",
+]
