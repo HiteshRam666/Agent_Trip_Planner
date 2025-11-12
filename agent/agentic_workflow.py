@@ -2,13 +2,27 @@ from langgraph.graph.message import MessagesState
 from prompt_library.prompt import SYSTEM_PROMPT
 from langgraph.graph import START, END, StateGraph, MessagesState
 from langgraph.prebuilt import ToolNode, tools_condition 
+from utils.model_loader import ModelLoader 
+from tools.arithmetic_tool import currency_convertor, add, multiply
+from tools.currency_conversion_tool import CurrencyConvertorTool
+from tools.place_search_tool import PlaceSearchTool
 
-class GraphBuilder:
-    def __init__(self): 
-        self.tools = [
-
-        ]
+class GraphBuilder():
+    def __init__(self, model_provider: str = "openai"): 
+        self.model_loader = ModelLoader(model_provider=model_provider)
+        self.llm = self.model_loader.load_llm()
+        self.tools = []
         self.system_prompt = SYSTEM_PROMPT
+
+        self.graph = None
+
+        self.place_search_tools = PlaceSearchTool().place_search_tool_list 
+        self.currency_convertor_tools = CurrencyConvertorTool().currency_converter_tool_list
+
+        self.tools.extend(self.place_search_tools)
+        self.tools.extend(self.currency_convertor_tools)
+
+        self.llm_with_tools = self.llm.bind_tools(tools=self.tools)
 
     def agent_function(self, state: MessagesState):
         """
